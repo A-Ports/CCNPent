@@ -137,10 +137,11 @@ router ospf 1
 network 10.2.203.0 0.0.0.255 area 20
 network 10.0.23.0 0.0.0.255 area 0
 network 10.0.3.0 0.0.0.255 area 0
-R3:
+R3: 
 config t
 int e1/2
 ip ospf priority 255
+!AKO MANANALO AS DR, TALO KA R1
 
 R2:
 config t
