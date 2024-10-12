@@ -120,25 +120,56 @@ router eigrp 100
 OSPF NETWORK:
 R4:
 config t
+int e1/2
+ip address 10.2.203.20 255.255.255.0
 router ospf 1
-network 10.1.1.8 0.0.0.3 area 34
+network 10.2.203.0 0.0.0.255 area 20
 
 R3:
 config t
+int e1/2
+ip address 10.2.203.3 255.255.255.0
+int e1/1
+ip address 10.0.23.3 255.255.255.0
+int lo 0
+ip address 10.0.3.3 255.255.255.0
 router ospf 1
-network 10.1.1.4 0.0.0.3 area 0
-network 10.1.1.8 0.0.0.3 area 34
+network 10.2.203.0 0.0.0.255 area 20
+network 10.0.23.0 0.0.0.255 area 0
+network 10.0.3.0 0.0.0.255 area 0
+R3:
+config t
+int e1/2
+ip ospf priority 255
 
 R2:
 config t
+int e1/1
+ip add 10.0.23.2 255.255.255.0
+int e1/2
+ip add 10.1.102.2 255.255.255.0
+int lo 0
+ip add 10.0.2.2 255.255.255.0
 router ospf 1
-network 10.1.1.4 0.0.0.3 area 0
-network 10.1.1.0 0.0.0.3 area 12
+network 10.0.23.0 0.0.0.255 area 0
+network 10.1.102.0 0.0.0.255 area 10
+network 10.0.2.2 0.0.0.255 area 0
 
 R1:
 config t
+int e1/0
+ip ospf priority 0
+
+R1:
+config t
+hostname R1-R10
+int lo 0
+ip add 1.1.1.1 255.255.255.255
+int e1/0
+ip add 10.1.102.10 255.255.255.0
 router ospf 1
-network 10.1.1.0 0.0.0.3 area 12
+network 10.1.102.0 0.0.0.255 area 10
+network 1.1.1.1 0.0.0.0 area 10
 
 @@@
 TASK9.3: BASIC eBGP FOR ISPS and R1.
